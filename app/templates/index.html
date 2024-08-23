@@ -1,0 +1,141 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-screen h-[calc(100vh-3px)] bg-site pt-24">
+	<!-- Header Section -->
+	<div
+		class="absolute top-0 left-0 flex items-center justify-center h-max w-full">
+		<header
+			class="2xl:max-w-screen-2xl xl:max-w-screen-2xl px-8 xl:px-20 mx-auto py-4 flex justify-between w-full h-max pt-8 font-plex-mono font-medium text-lg">
+			<div class="flex">
+				<a href="#" class="text-white/85 hover:underline underline-offset-4"
+					>Login</a
+				>
+				<span class="text-white/50 font-bold px-3 cursor-default">/</span>
+				<a href="#" class="text-white/85 hover:underline underline-offset-4"
+					>Signup</a
+				>
+			</div>
+			<div class="text-white/75 text-lg">© 2024 Aesper</div>
+		</header>
+	</div>
+	<div class="flex flex-col items-center h-max pt-20">
+		<!-- Impression Section -->
+		<div
+			class="flex flex-col gap-8 mx-auto 2xl:max-w-screen-2xl xl:max-w-screen-2xl px-6 xl:px-16 w-full font-jakarta"
+			style="font-variant-ligatures: normal">
+			<h1 class="text-5xl md:text-6xl text-theme-2 font-semibold">Impris</h1>
+			<h3 class="text-2xl md:text-5xl font-regular text-white/80 leading-snug">
+				a creative os for crafting <br />
+				superior digital assets.
+			</h3>
+			<p
+				class="text-base md:text-lg text-white/80 font-plex-mono font-light hidden md:block xl:hidden">
+				Alpha Ver 0.12
+			</p>
+		</div>
+	</div>
+
+	<!-- The line thingy with text -->
+	<div
+		class="flex flex-col mx-auto 2xl:max-w-screen-2xl xl:max-w-screen-2xl px-6 xl:px-16 w-full mt-20">
+		<div
+			class="w-full h-max flex flex-col md:flex-row gap-2 font-plex-mono font-light text-base lg:text-lg text-white/80 text-nowrap items-start md:items-center border-t border-white/50 pt-4 md:pt-0 md:border-none">
+			<p class="md:hidden block">Alpha Ver 0.12</p>
+			<p>Demo App: Youtube Thumbnail Generator</p>
+			<div class="w-full h-0 border-t-2 hidden md:block border-white/50"></div>
+			<p class="hidden md:block">Let every thumbnail tell its tale</p>
+			<div class="w-full hidden xl:block h-0 border-t-2 border-white/50"></div>
+			<p class="hidden xl:block">Alpha Ver 0.12</p>
+			<div
+				class="w-60 h-0 border-t-2 border-white/50 hidden md:block xl:hidden"></div>
+		</div>
+	</div>
+
+	<!-- The input form. -->
+	<div
+		class="flex flex-col mx-auto 2xl:max-w-screen-2xl xl:max-w-screen-2xl px-6 xl:px-16 w-full mt-12 gap-3">
+		<div class="w-full flex flex-col md:flex-row gap-3 h-max lg:h-48 2xl:h-60">
+			<div class="flex flex-col gap-3 w-full">
+				<div
+					class="flex items-center pl-4 justify-start w-full h-max py-3 text-lg text-white/50 border-white/20 rounded-lg border">
+					<img
+						src="{{ url_for('static', filename='/dist/icons/Youtube.png') }}"
+						class="aspect-auto h-8"
+						alt="Youtube-logo" />
+					<input
+						type="text"
+						class="w-full h-full px-4 bg-transparent text-white/90 placeholder:text-white/50 outline-none"
+						placeholder="Enter your Youtube video URL" />
+				</div>
+				<div
+					class="flex items-center justify-start w-full h-full py-3 text-white/50 border-white/20 rounded-lg border">
+					<textarea
+						id="prompt-input"
+						class="w-full h-full text-base px-4 bg-transparent resize-none text-white/90 placeholder:text-white/50 outline-none"
+						placeholder="Enter details about the thumbnail you'd like to generate:"></textarea>
+				</div>
+			</div>
+			<div
+				onclick="generate_thumbnail()"
+				class="rounded-lg hidden font-plex-mono lg:flex items-center justify-center bg-theme-1/80 hover:bg-theme-1 outline-transparent outline outline-offset-2 hover:outline-theme-1/40 text-xl duration-300 cursor-pointer text-white px-12 h-full w-max">
+				Generate
+			</div>
+			<div
+				id="thumbnail-preview"
+				class="flex items-center justify-center text-lg text-white/50 border-white/20 rounded-lg w-full h-32 md:h-auto border select-none">
+				<img
+					id="preview-image"
+					src=""
+					alt="Thumbnail Preview"
+					style="
+						display: none;
+						width: 100%;
+						height: auto;
+						object-fit: contain;
+					" />
+				<span id="preview-text">Your Thumbnail Preview</span>
+			</div>
+		</div>
+		<div
+			onclick="generate_thumbnail()"
+			class="rounded-lg flex font-plex-mono items-center justify-center bg-theme-1/80 py-3 hover:bg-theme-1 outline-transparent outline outline-offset-2 hover:outline-theme-1/40 duration-300 cursor-pointer text-white px-12 h-full w-full lg:hidden text-lg md:text-xl">
+			Generate
+		</div>
+	</div>
+</div>
+
+<script>
+	function generate_thumbnail() {
+		const promptInput = document.getElementById("prompt-input");
+		const prompt = promptInput.value.trim();
+
+		if (!prompt) {
+			alert("Please enter a prompt for the thumbnail.");
+			return;
+		}
+		fetch("/generate", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ prompt: prompt, width: 1280, height: 720 }),
+		})
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data);
+				if (data.images && data.images.length > 0) {
+					const imageUrl = data.images[0].url;
+					console.log(imageUrl, "imageurl");
+					const previewImage = document.getElementById("preview-image");
+					const previewText = document.getElementById("preview-text");
+
+					previewImage.src = imageUrl;
+					previewImage.style.display = "block";
+					previewText.style.display = "none";
+				}
+				// Handle the data you receive from the backend here
+			})
+			.catch((error) => console.error("Error:", error));
+	}
+</script>
+
+{% endblock content %} {% block scripts %} {{ super() }} {% endblock scripts %}

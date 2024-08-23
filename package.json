@@ -1,0 +1,28 @@
+{
+  "name": "flask-tailwind-starter",
+  "version": "1.0.0",
+  "description": "## Key Features - Basic Flask app scaffolding - TailwindCSS setup using npm (with purge implemented for Production)",
+  "main": "",
+  "scripts": {
+    "dev": "cross-env TAILWIND_MODE=watch NODE_ENV=development postcss ./app/static/src/css/tailwind.css -o ./app/static/dist/css/main.css -w",
+    "build:prod": "cross-env TAILWIND_MODE=build NODE_ENV=production postcss ./app/static/src/css/tailwind.css -o ./app/static/dist/css/main.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackbaba/Flask-Tailwind-Starter.git"
+  },
+  "author": "Amrinder Dhindsa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blackbaba/Flask-Tailwind-Starter/issues"
+  },
+  "homepage": "https://github.com/blackbaba/Flask-Tailwind-Starter#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "cross-env": "^7.0.3",
+    "cssnano": "^7.0.5",
+    "postcss": "^8.4.41",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.10"
+  }
+}

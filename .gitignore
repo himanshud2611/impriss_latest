@@ -1,0 +1,68 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Flask specific
+instance/
+*.sqlite
+*.db
+
+# Logs
+*.log
+*.log.*
+
+# Pytest and coverage
+.cache/
+.coverage
+.tox/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Environment variables
+.env
+.venv/
+env/
+venv/
+
+# Virtual environment
+pip-log.txt
+pip-delete-this-directory.txt
+
+# TailwindCSS
+node_modules/
+dist/
+*.css.map
+*.css
+
+# VSCode and other editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
