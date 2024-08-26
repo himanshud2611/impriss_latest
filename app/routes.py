@@ -18,8 +18,10 @@ from app.helpers import *
 from app.forms import *
 from app.models import *
 
+
 # Home route
 FAL_KEY = "301fd19a-31d4-4acf-9e93-ccacbf266dd9:00bf30859618fd61f130da70134cc50b"
+YOUTUBE_API_KEY = "AIzaSyCeM7AYWbHdAcTt7FLOSbrFV-6bXgH5uL8"
 
 @app.route('/generate', methods=['POST'])
 def generate():

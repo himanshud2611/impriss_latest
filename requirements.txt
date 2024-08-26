@@ -7,3 +7,4 @@ python-dotenv==0.15.0
 Werkzeug==1.0.1
 fal_client==0.4.1
 gunicorn
+google-api-python-client

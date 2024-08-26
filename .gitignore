@@ -55,7 +55,7 @@ pip-delete-this-directory.txt
 node_modules/
 dist/
 *.css.map
-*.css
+
 
 # VSCode and other editors
 .vscode/
